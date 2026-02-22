@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import logging
 import os
 import time
@@ -71,11 +72,17 @@ def _is_duplicate(event_id: str) -> bool:
 async def slack_events(request: Request):
     """Slack Events API のエンドポイント."""
     body_bytes = await request.body()
-    body = await request.json()
+    try:
+        body = json.loads(body_bytes.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return Response(status_code=400, content="Invalid JSON")
 
-    # URL Verification Challenge
+    # URL Verification Challenge（署名検証より先に処理。Slack の検証時は challenge をそのまま返す）
     if body.get("type") == "url_verification":
-        return {"challenge": body["challenge"]}
+        challenge = body.get("challenge")
+        if challenge is not None:
+            return {"challenge": challenge}
+        return Response(status_code=400, content="Missing challenge")
 
     # 署名検証
     timestamp = request.headers.get("X-Slack-Request-Timestamp", "0")

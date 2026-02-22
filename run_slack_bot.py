@@ -16,8 +16,7 @@ from slack_bot.app import app
 
 if __name__ == "__main__":
     host = os.environ.get("SLACK_BOT_HOST", "0.0.0.0")
-    # Cloud Run は PORT を注入するため、PORT を優先
-    port = int(os.environ.get("PORT", os.environ.get("SLACK_BOT_PORT", "3000")))
+    port = int(os.environ.get("SLACK_BOT_PORT", "3000"))
     ssl_certfile = os.environ.get("SLACK_BOT_SSL_CERT", "")
     ssl_keyfile = os.environ.get("SLACK_BOT_SSL_KEY", "")
 
