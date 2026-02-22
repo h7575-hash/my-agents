@@ -1,13 +1,20 @@
 import os
+from pathlib import Path
 from typing import Any
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_google_vertexai import ChatVertexAI
 
+# プロジェクトルートのサービスアカウントキーを常に使用
+_CREDENTIALS_FILE = Path(__file__).resolve().parent.parent / "news-for-problem-2fe0d80c17d1.json"
+
 
 def build_model() -> ChatVertexAI:
     """Vertex AI のチャットモデルを構築。GOOGLE_CLOUD_PROJECT / GOOGLE_CLOUD_LOCATION を使用。"""
+    if _CREDENTIALS_FILE.exists():
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(_CREDENTIALS_FILE)
+
     model_name = os.getenv("VERTEX_MODEL", "gemini-1.5-flash")
     project = os.getenv("GOOGLE_CLOUD_PROJECT")
     location = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")

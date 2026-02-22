@@ -132,13 +132,6 @@ Google Cloud で常時稼働させる場合の例です。
    https://slack-bot-xxxxx-an.a.run.app/slack/events
    ```
 
-**Verify が通らない場合**: まず次のコマンドでエンドポイントの応答を確認してください。
-   ```bash
-   python scripts/test_slack_verify.py https://<あなたのCloud Run URL>/slack/events
-   ```
-- HTML の「placeholder」が返る → **コードがまだデプロイされていません**。Cloud Run のビルド履歴を確認し、イメージのビルド・デプロイが成功している状態にしてください。
-- `challenge` が JSON で返る → Slack の Request URL を同じ URL に設定すれば Verified になります。
-
 ※ 認証が必要な場合は `--no-allow-unauthenticated` にし、Slack のリクエストのみを通す設定（例: IAP や Cloud Endpoints）を検討してください。
 
 ---
