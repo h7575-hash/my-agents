@@ -1,0 +1,41 @@
+# 仮想環境・キャッシュ
+.venv
+venv
+__pycache__
+*.py[cod]
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# 環境・秘密（Cloud Run では環境変数で渡す）
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# IDE・OS
+.idea
+.vscode
+.cursor
+*.swp
+.DS_Store
+Thumbs.db
+
+# ドキュメント・スクリプト（イメージには不要）
+docs/
+scripts/
+*.md
+!README.md
+
+# テスト・開発用
+tests/
+*.test.py
+conftest.py
+
+# その他
+assets/
+*.log

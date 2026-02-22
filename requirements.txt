@@ -1,0 +1,7 @@
+langgraph
+langchain-google-vertexai
+python-dotenv
+requests
+pydantic
+fastapi
+uvicorn[standard]

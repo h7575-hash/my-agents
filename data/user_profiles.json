@@ -1,0 +1,23 @@
+{
+  "user_profiles": {
+    "default_user": {
+      "topics": [
+        "AI",
+        "LangGraph",
+        "Vertex AI"
+      ],
+      "exclude_keywords": [
+        "広告",
+        "PR",
+        "スポンサー"
+      ],
+      "language": "ja",
+      "region": "JP"
+    }
+  },
+  "workflow_config": {
+    "lookback_days": 7,
+    "max_retries": 2,
+    "max_candidates": 20
+  }
+}
