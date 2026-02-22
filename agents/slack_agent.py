@@ -66,12 +66,17 @@ def create_slack_agent_graph(model, tools):
     return builder.compile()
 
 
-def run_slack_agent(user_message: str, user_id: str = "") -> str:
+def run_slack_agent(
+    user_message: str,
+    user_id: str = "",
+    thread_context: str | None = None,
+) -> str:
     """Slackエージェントを実行し、応答テキストを返す.
 
     Args:
         user_message: ユーザーのメッセージ（ボットメンション除去済み）
         user_id: 送信者のSlackユーザーID
+        thread_context: このスレッドの会話履歴（直前まで）。省略時は単発メッセージとして扱う
 
     Returns:
         Slackに送り返す応答テキスト
@@ -90,6 +95,15 @@ def run_slack_agent(user_message: str, user_id: str = "") -> str:
 
     if user_id:
         system_prompt += f"\n\n現在の対話相手のSlackユーザーID: {user_id}"
+
+    if thread_context:
+        system_prompt += (
+            "\n\n## このスレッドの会話履歴（直前に至るまで）\n"
+            "以下を踏まえ、最後のユーザーメッセージに応答してください。\n\n"
+            "---\n"
+            f"{thread_context}\n"
+            "---"
+        )
 
     result = graph.invoke(
         {

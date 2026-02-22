@@ -39,6 +39,8 @@ Slack に返信（同スレッド内）
 |-------|------|
 | `app_mentions:read` | メンションイベントの受信 |
 | `chat:write` | メッセージの送信 |
+| `channels:history` | パブリックチャンネルでスレッド履歴を取得（スレッド丸ごと認識に必要） |
+| `groups:history` | プライベートチャンネルでスレッド履歴を取得（プライベートでスレッド認識する場合） |
 
 3. **Event Subscriptions** を有効化:
    - Request URL: `https://<your-domain>/slack/events`
